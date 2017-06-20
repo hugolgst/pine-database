@@ -1,3 +1,38 @@
+How to import?
+===========
+### Gradle
+``` gradle
+repositories {
+    maven {
+        url 'http://ananagame.github.io/maven'
+    }
+}
+
+dependencies {
+    compile 'xyz.anana:pine-database:1.1-SNAPSHOT'
+}
+```
+
+### Maven
+``` xml
+<repositories>
+    <repository>
+        <id>anana</id>
+        <url>http://ananagame.github.io/maven</url>
+    </repository>
+</repositories>
+
+<dependencies>
+    <dependency>
+        <groupId>xyz.anana</groupId>
+        <artifactId>pine-database</artifactId>
+        <version>1.1-SNAPSHOT</version>
+    </dependency>
+</dependencies>
+```
+
+Or simply download the release.
+
 # How to use pine-database ?
 Firstly you need to get the Table object:
 ``` java
