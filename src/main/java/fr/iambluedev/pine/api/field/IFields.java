@@ -8,6 +8,10 @@ import java.util.List;
 
 public interface IFields {
 
+	/**
+	 * Get Fields
+	 * 
+	 * @return list of Field
+	 */
 	List<IField> getFields();
-	
 }
