@@ -9,7 +9,7 @@ repositories {
 }
 
 dependencies {
-    compile 'xyz.hugol:pine-database:1.1-SNAPSHOT'
+    compile 'xyz.hugol:pine-database:1.2-SNAPSHOT'
 }
 ```
 
@@ -26,7 +26,7 @@ dependencies {
     <dependency>
         <groupId>xyz.hugol</groupId>
         <artifactId>pine-database</artifactId>
-        <version>1.1-SNAPSHOT</version>
+        <version>1.2-SNAPSHOT</version>
     </dependency>
 </dependencies>
 ```
