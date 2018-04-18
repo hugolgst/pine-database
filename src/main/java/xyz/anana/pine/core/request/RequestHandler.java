@@ -23,10 +23,6 @@ import xyz.anana.pine.core.utils.Method;
 /**
  * @author <a href="mailto:contact@anana.xyz">Anana</a>
  */
-/**
- * @author Guillaume
- *
- */
 @RequiredArgsConstructor
 public class RequestHandler implements IRequest {
 

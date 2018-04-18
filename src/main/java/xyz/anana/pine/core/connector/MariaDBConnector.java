@@ -2,6 +2,9 @@ package xyz.anana.pine.core.connector;
 
 import fr.iambluedev.pine.api.connector.IConnector;
 
+/**
+ * @author <a href="https://twitter.com/iambluedev">iambluedev</a>
+ */
 public class MariaDBConnector implements IConnector {
 
 	/**

@@ -8,7 +8,6 @@ import fr.iambluedev.pine.api.field.IFields;
 /**
  * @author <a href="https://twitter.com/iambluedev">iambluedev</a>
  */
-
 public interface IRequest {
 
 	/**
