@@ -15,6 +15,11 @@ public class Fields implements IFields{
 
 	private List<IField> fields;
 
+	/**
+	 * Get Fields
+	 * 
+	 * @return list of Field
+	 */
 	@Override
 	public List<IField> getFields() {
 		return this.fields;
