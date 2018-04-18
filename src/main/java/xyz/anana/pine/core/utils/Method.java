@@ -1,4 +1,4 @@
-package xyz.hugol.database.utils;
+package xyz.hugol.pine.core.utils;
 
 /**
  * @author <a href="mailto:contact@hugol.xyz">hugol</a>
