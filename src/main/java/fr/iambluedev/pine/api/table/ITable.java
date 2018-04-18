@@ -5,6 +5,10 @@ import java.util.List;
 import fr.iambluedev.pine.api.field.IField;
 import fr.iambluedev.pine.api.field.IFields;
 
+/**
+ * @author <a href="https://twitter.com/iambluedev">iambluedev</a>
+ */
+
 public interface ITable {
 
 	Object select(String field);
@@ -13,11 +17,11 @@ public interface ITable {
 	
 	Object select(String field, IField where);
 	
-	List<IField> select(List<String> fields, IField where);
+	IFields select(List<String> fields, IField where);
 	
 	Object select(String field, List<IField> where);
 	
-	List<IField> select(List<String> fields, List<IField> where);
+	IFields select(List<String> fields, List<IField> where);
 
 	List<Object> selectList(String field);
 	

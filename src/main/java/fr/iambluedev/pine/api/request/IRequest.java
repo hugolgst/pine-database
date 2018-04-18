@@ -5,6 +5,10 @@ import java.util.List;
 import fr.iambluedev.pine.api.field.IField;
 import fr.iambluedev.pine.api.field.IFields;
 
+/**
+ * @author <a href="https://twitter.com/iambluedev">iambluedev</a>
+ */
+
 public interface IRequest {
 
 	boolean executeUpdate(String query);
@@ -13,7 +17,7 @@ public interface IRequest {
 	
 	List<IFields> select(String query);
 	
-	List<IField> select(String query, List<String> fields);
+	IFields select(String query, List<String> fields);
 	
 	List<Object> selectList(String query, String get);
 	
