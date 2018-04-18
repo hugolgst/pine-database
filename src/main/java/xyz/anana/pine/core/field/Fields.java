@@ -6,6 +6,10 @@ import fr.iambluedev.pine.api.field.IField;
 import fr.iambluedev.pine.api.field.IFields;
 import lombok.AllArgsConstructor;
 
+/**
+ * @author <a href="https://twitter.com/iambluedev">iambluedev</a>
+ */
+
 @AllArgsConstructor
 public class Fields implements IFields{
 
