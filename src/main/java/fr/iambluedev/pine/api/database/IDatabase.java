@@ -5,7 +5,6 @@ import fr.iambluedev.pine.api.table.ITable;
 /**
  * @author <a href="https://twitter.com/iambluedev">iambluedev</a>
  */
-
 public interface IDatabase {
 
 	/**

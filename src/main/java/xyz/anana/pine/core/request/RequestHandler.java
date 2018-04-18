@@ -23,10 +23,6 @@ import xyz.hugol.pine.core.utils.Method;
 /**
  * @author <a href="mailto:contact@hugol.xyz">hugol</a>
  */
-/**
- * @author Guillaume
- *
- */
 @RequiredArgsConstructor
 public class RequestHandler implements IRequest {
 

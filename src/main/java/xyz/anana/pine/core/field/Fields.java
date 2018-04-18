@@ -9,7 +9,6 @@ import lombok.AllArgsConstructor;
 /**
  * @author <a href="https://twitter.com/iambluedev">iambluedev</a>
  */
-
 @AllArgsConstructor
 public class Fields implements IFields{
 

@@ -5,7 +5,6 @@ import java.util.List;
 /**
  * @author <a href="https://twitter.com/iambluedev">iambluedev</a>
  */
-
 public interface IFields {
 
 	/**
