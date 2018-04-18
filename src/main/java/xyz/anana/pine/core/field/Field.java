@@ -1,18 +1,29 @@
-package xyz.anana.database.objects;
+package xyz.anana.pine.core.field;
 
-import lombok.AllArgsConstructor;
+import fr.iambluedev.pine.api.field.IField;
 import lombok.Getter;
 
 /**
  * @author <a href="mailto:contact@anana.xyz">Anana</a>
  */
-@AllArgsConstructor
 @Getter
-public class Field {
+public class Field implements IField {
 
-    private String name;
-    private Object value;
+	private String name;
+	private Object value;
+	private boolean like = false;
 
+	public Field(String name, Object value) {
+		this.name = name;
+		this.value = value;
+	}
+	
+	public Field(String name, Object value, boolean like) {
+		this.name = name;
+		this.value = value;
+		this.like = like;
+	}
+	
     /**
      * Retrieves the parsed name with the simple quotes.
      *
@@ -28,7 +39,12 @@ public class Field {
      * @return The parsed value with the simple quotes.
      */
     public String getParsedValue() {
-        return " '" + value + "' ";
+    	String formatted = String.valueOf(value);
+		formatted = formatted.replaceAll("'", "\\\\'").replaceAll("\\P{Print}", "");
+		if(like) {
+			return "'%" + formatted + "%'";
+		}
+		return "'" + formatted + "'";
     }
 
     /**
@@ -38,7 +54,7 @@ public class Field {
      * @return The parsed name and values with simple quotes and equal.
      */
     public String getParsedNameAndValue() {
-        return getParsedName() + "=" + getParsedValue();
+        return getParsedName() + ((this.like) ? " LIKE " : "=") + getParsedValue();
     }
 
 }

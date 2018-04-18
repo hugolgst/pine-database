@@ -1,6 +1,4 @@
-package xyz.anana.database.objects;
-
-import lombok.Getter;
+package xyz.anana.pine.core.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,27 +6,78 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import fr.iambluedev.pine.api.connector.IConnector;
+import fr.iambluedev.pine.api.database.IDatabase;
+import fr.iambluedev.pine.api.table.ITable;
+import lombok.Getter;
+import xyz.anana.pine.core.connector.MySQLConnector;
+import xyz.anana.pine.core.request.RequestHandler;
+import xyz.anana.pine.core.table.Table;
+
 /**
  * @author <a href="mailto:contact@anana.xyz">Anana</a>
  */
-public class Database {
+@Getter
+public class Database implements IDatabase {
 
     private Logger logger = Logger.getLogger(getClass().getName());
 
     @Getter
+	private static Database instance;
+    
     private Connection connection;
-    private String host;
+	private RequestHandler requestHandler;
+	private String host;
     private String user;
-    private String password;
-
-    @Getter
-    private boolean connected;
-
-    public Database(final String host, final String database, final String user, final String password) {
-        this.host = "jdbc:mysql://" + host + ":3306/" + database;
+	private String password;
+	private String database;
+	private Integer port;
+	private boolean connected;
+	private IConnector connector;
+    
+    private Database(String host, String database, String user, String password) {
+		this.database = database;
         this.user = user;
         this.password = password;
-    }
+        this.port = 3306;
+        this.requestHandler = new RequestHandler(this);
+        this.connector = new MySQLConnector();
+        this.host = this.formatHost(host);
+        instance = this;
+	}
+	
+	public Database(String host, String database, String user, String password, Integer port) {
+        this.database = database;
+        this.user = user;
+        this.password = password;
+        this.port = port;
+        this.requestHandler = new RequestHandler(this);
+        this.connector = new MySQLConnector();
+        this.host = this.formatHost(host);
+        instance = this;
+	}
+	
+	public Database(String host, String database, String user, String password, IConnector connector) {
+		this.database = database;
+        this.user = user;
+        this.password = password;
+        this.port = 3306;
+        this.requestHandler = new RequestHandler(this);
+        this.connector = connector;
+        this.host = this.formatHost(host);
+        instance = this;
+	}
+	
+	public Database(String host, String database, String user, String password, Integer port, IConnector connector) {
+        this.database = database;
+        this.user = user;
+        this.password = password;
+        this.port = port;
+        this.requestHandler = new RequestHandler(this);
+        this.connector = connector;
+        this.host = this.formatHost(host);
+        instance = this;
+	}
 
     /**
      * Retrieves a table into this database with his name.
@@ -36,41 +85,88 @@ public class Database {
      * @param name The table name.
      * @return The table object.
      */
-    public Table getTable(String name) {
+	@Override
+    public ITable getTable(String name) {
         return new Table(this, name);
     }
 
+	/**
+	 * Drop Table
+	 * 
+	 * @param name
+	 */
+	@Override
+	public boolean dropTable(String name) {
+		return this.requestHandler.executeUpdate("DROP TABLE `" + name + "`");
+	}
+
+	/**
+	 * Truncate Table
+	 * 
+	 * @param name
+	 */
+	@Override
+	public boolean truncateTable(String name) {
+		return this.requestHandler.executeUpdate("TRUNCATE TABLE `" + name + "`");
+	}
+	
     /**
      * Etablish a connection to the MySQL Database.
      */
-    public void connect() {
+	@Override
+    public boolean connect() {
         if (connected)
-            return;
+            return false;
 
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+        	Class.forName(this.connector.getDriverPath());
 
             this.connection = DriverManager.getConnection(host, user, password);
             this.connected = true;
+            return true;
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Can't connect to the database", e);
         } catch (ClassNotFoundException e) {
             logger.log(Level.SEVERE, "Can't find JDBC Driver", e);
         }
+        return false;
     }
 
     /**
      * Close the etablished connection.
      */
-    public void close() {
+    @Override
+    public boolean close() {
         if (!connected)
-            return;
+            return false;
 
         try {
             connection.close();
+            this.connected = false;
+            return true;
         } catch (SQLException e) {
             logger.log(Level.SEVERE, e.getMessage(), e);
         }
+        return false;
     }
+    
+    
+    /**
+     * Get Database Status
+     */
+    @Override
+	public boolean status() {
+		return this.connected;
+	}
+	
+    /**
+     * Tool in order to get the right formatted database url, following the specified connector
+     * 
+     * @param host
+     * @return Formatted Database Url
+     */
+	private String formatHost(String host){
+		return "jdbc:" + this.connector.getName() + "://" + host + ":" + this.port + "/" + this.database;
+	}
 
 }

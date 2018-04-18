@@ -1,4 +1,4 @@
-package xyz.anana.database.utils;
+package xyz.anana.pine.core.utils;
 
 /**
  * @author <a href="mailto:contact@anana.xyz">Anana</a>
