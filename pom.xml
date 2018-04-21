@@ -15,6 +15,10 @@
 		</contributor>
 	</contributors>
 
+	<properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -24,6 +28,15 @@
 						<descriptorRef>jar-with-dependencies</descriptorRef>
 					</descriptorRefs>
 				</configuration>
+				<executions>
+					<execution>
+						<id>make-assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
