@@ -265,7 +265,7 @@ public class Table implements ITable {
 	public void dump() {
 		int line = 1;
 		for(IFields fields : this.selectAll()){
-			System.out.print("Entry n°" + line + ": ");
+			System.out.print("Entry n" + line + ": ");
 			for(IField field : fields.getFields()) {
 				Field formattedField = (Field) field;
 				System.out.print(formattedField.getName() + "=" + formattedField.getParsedValue() + ", ");
