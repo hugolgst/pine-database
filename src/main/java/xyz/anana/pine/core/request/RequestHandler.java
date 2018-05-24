@@ -221,10 +221,12 @@ public class RequestHandler implements IRequest {
     @Override
     public String getListOfWhereValues(List<IField> where) {
         StringBuilder whereFields = new StringBuilder();
-        where.forEach(whereField ->
-                whereFields.append(whereField.getParsedNameAndValue() + Method.AND));
-
-        return whereFields.toString().substring(0, whereFields.length() - 5);
+	    
+	for(int i = 0; i < where.size(); i++){
+		whereFields.append(where.get(i).getParsedNameAndValue() + ((i != (where.size() - 1)) ? Method.AND : ""));
+	}
+	    
+        return whereFields.toString();
     }
     
     
